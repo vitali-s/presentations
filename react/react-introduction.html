@@ -37,6 +37,44 @@ class: center, middle
 
 ---
 
+# Let's start
+
+Let's add some hands on practice:
+
+```Bash
+npm install -g create-react-app
+
+create-react-app <application-name>
+
+cd <application-name>
+
+yarn start
+```
+
+---
+
+# DOM Events
+
+* JSX provides API to bind DOM events (list of supported events: https://reactjs.org/docs/events.html#supported-events)
+* React events are named using camelCase, rather than lowercase.
+* React uses SyntheticEvent wrapper around native browser's events
+
+```html
+<button onClick={this.click}</button>
+<button onClick={this.click.bind(this, additionalArgs)}</button>
+<button onClick={(e) => this.click(e, additionalArgs)}</button>
+```
+
+* Testing events
+
+```JavaScript
+const wrapper = shallow(<DomEvents />);
+
+wrapper.find('button').simulate('click');
+```
+
+---
+
 # Props
 
 ---
