@@ -12,11 +12,22 @@
       {
           font-family: 'Droid Serif';
       }
-      h1, h2, h3 {
+
+      h1, h2, h3
+      {
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
       }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .remark-code, .remark-inline-code
+      {
+          font-family: 'Ubuntu Mono';
+      }
+
+      .small
+      {
+          font-size: 70%
+      }
     </style>
   </head>
   <body>
@@ -51,6 +62,100 @@ cd <application-name>
 yarn start
 ```
 
+Use your editor
+```Bash
+code .
+```
+---
+
+# Simple React Component
+
+* The simplest components is function that accept props (properties) and returns React element
+
+```JavaScript
+function Hello(props) {
+    return (
+        <h1>{props.title}</h1>
+    );
+};
+
+ReactDOM.render(
+  <Hello title='Hello React' />,
+  document.getElementById('root')
+);
+```
+
+* Or ES6 class could be used to define React component
+
+```JavaScript
+class Hello extends Component {
+    render() {
+        return <h1>{this.props.title}</h1>;
+    }
+}
+```
+
+---
+
+# JSX
+
+* All Elements Must be Balanced:
+```
+<div/> or <div></div>
+```
+* Should have only single root node
+* React DOM uses camelCase property naming convention instead of HTML attribute names (className, tabIndex, https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+* Injection is prevented by encoding expressions
+```
+const title = response.potentiallyMaliciousInput;
+const element = <h1>{title}</h1>;
+```
+
+---
+
+# Conditional Rendering
+
+* Using short if
+* Using &&
+
+```JavaScript
+<div>
+    {this.state.isVisible ? (
+        <div>Is Visible</div>
+    ) : (
+        <div>Is Not Visible</div>
+    )}
+
+    {this.state.clicks > 5 &&
+        <div>Is Visible</div>
+    }
+</div>
+
+```
+
+---
+
+# State
+
+* Access via this.state
+* Do not modify directly, always use setState function (except constructor)
+* setState merges object (shallow merging), but in case of complex merging, it should be done manually
+```JavaScript
+Object.assign({}, this.state.property, { changes: 'new change' });
+```
+* In case of changing property completely:
+```JavaScript
+this.setState({
+    users: users + 1
+});
+```
+* In case of updating property
+```JavaScript
+this.setState((prevState, props) => ({
+    counter: prevState.counter + props.increment
+}));
+```
+
 ---
 
 # DOM Events
@@ -65,6 +170,12 @@ yarn start
 <button onClick={(e) => this.click(e, additionalArgs)}</button>
 ```
 
+* To prevent defailt action on event (similar to 'return false;' on element)
+
+```JavaScript
+e.preventDefault();
+```
+
 * Testing events
 
 ```JavaScript
@@ -72,6 +183,7 @@ const wrapper = shallow(<DomEvents />);
 
 wrapper.find('button').simulate('click');
 ```
+.small[Note: be aware about ES6 classes binding behaviour (functions are not bound to classes https://ponyfoo.com/articles/binding-methods-to-class-instance-objects)]
 
 ---
 
@@ -123,8 +235,6 @@ let titlePropType = (props, propName, componentName) => {
 }
 ```
 ---
-
-
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
